@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<robot name="fusion2urdf" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find fusion2urdf_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find fusion2urdf_description)/urdf/fusion2urdf.trans" />
+<xacro:include filename="$(find fusion2urdf_description)/urdf/fusion2urdf.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.012647843960679934 1.2902170503895848e-16 0.03871634926681479" rpy="0 0 0"/>
+    <mass value="0.6857976281413665"/>
+    <inertia ixx="0.000555" iyy="0.000805" izz="0.001137" ixy="0.0" iyz="-0.0" ixz="-3.2e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_v1_1">
+  <inertial>
+    <origin xyz="-3.469446951953614e-18 -4.0208493750847415e-18 0.012499999999999997" rpy="0 0 0"/>
+    <mass value="0.5548838024402972"/>
+    <inertia ixx="0.000154" iyy="0.000154" izz="0.00025" ixy="-0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.03 0.0 -0.072" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/lidar_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.03 0.0 -0.072" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/lidar_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="r_wheel_v1_1">
+  <inertial>
+    <origin xyz="3.469446951953614e-18 -0.010000000000000009 4.76837160034993e-10" rpy="0 0 0"/>
+    <mass value="0.6042068071016569"/>
+    <inertia ixx="0.000205" iyy="0.00037" izz="0.000205" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.02 0.06 -0.035" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/r_wheel_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.02 0.06 -0.035" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/r_wheel_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="l_wheel_v1_1">
+  <inertial>
+    <origin xyz="-2.98023213746168e-10 0.010000000000000009 9.983777971012131e-10" rpy="0 0 0"/>
+    <mass value="0.6042068071016569"/>
+    <inertia ixx="0.000205" iyy="0.00037" izz="0.000205" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.02 -0.06 -0.035" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/l_wheel_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="steel_satin"/>
+  </visual>
+  <collision>
+    <origin xyz="0.02 -0.06 -0.035" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://fusion2urdf_description/meshes/l_wheel_v1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rigid 3" type="fixed">
+  <origin xyz="0.03 0.0 0.072" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_v1_1"/>
+</joint>
+
+<joint name="Revolute 4" type="continuous">
+  <origin xyz="-0.02 -0.06 0.035" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="r_wheel_v1_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Revolute 5" type="continuous">
+  <origin xyz="-0.02 0.06 0.035" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="l_wheel_v1_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+</robot>
